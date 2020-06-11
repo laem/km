@@ -37,6 +37,18 @@ export default () => {
 	return <div>Désolé, cette page n'existe pas</div>
 }
 
+const save = (answers, setOK) =>
+	fetch('https://api.npoint.io/699576497bb3b4b3ed6a')
+		.then((req) => req.json())
+		.then((json) =>
+			fetch('https://api.npoint.io/699576497bb3b4b3ed6a', {
+				method: 'POST',
+				body: JSON.stringify([...json, answers]),
+			})
+				.then((req) => req.json())
+				.then((json) => setOK(true))
+		)
+
 const Header = () => (
 	<header
 		css={`
@@ -45,7 +57,8 @@ const Header = () => (
 			margin-bottom: 1rem;
 			justify-content: center;
 			> h1 {
-				margin: 0.8rem;
+				margin: 0.6 0 2rem;
+				border-bottom: 1px solid chartreuse;
 				font-weight: normal;
 				max-width: 20rem;
 			}
@@ -71,6 +84,20 @@ const modes = [
 
 const Accueil = () => {
 	const [answers, setAnswers] = useState([])
+	const [OK, setOK] = useState(false)
+	if (OK)
+		return (
+			<div
+				css={`
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					height: 100vh;
+				`}
+			>
+				Super, merci
+			</div>
+		)
 	return (
 		<div css={pageLayout}>
 			<Header />
@@ -93,7 +120,7 @@ const Accueil = () => {
 				`}
 			>
 				{modes.map(([mode, icon]) => (
-					<li>
+					<li key={mode}>
 						<input
 							type="checkbox"
 							id={mode}
@@ -119,13 +146,30 @@ const Accueil = () => {
 								text-align: center;
 							`}
 							title={mode}
-							for={mode}
+							htmlFor={mode}
 						>
 							{<Emoji emoji={icon} />}
 						</label>
 					</li>
 				))}
 			</ul>
+			<button
+				css={`
+					opacity: ${answers.length ? '1' : '.3'};
+					background: chartreuse;
+					padding: 1rem 2rem;
+					border: none;
+					font-size: 130%;
+					margin: 0 auto;
+					border-radius: 3rem;
+					box-shadow: rgba(0, 0, 0, 0.08) 0px 8px 28px;
+					display: block;
+					cursor: pointer;
+				`}
+				onClick={() => answers.length && save(answers, setOK)}
+			>
+				<Emoji emoji="✔" /> Envoyer
+			</button>
 		</div>
 	)
 }
