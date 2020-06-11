@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
 	Switch,
 	Route,
@@ -7,10 +7,12 @@ import {
 	useLocation,
 } from 'react-router-dom'
 import ScrollToTop from './ScrollToTop'
+import Emoji from './Emoji'
 
 export const pageLayout = `
 			max-width: 800px;
 			margin: 0 auto;
+			font-size: 110%;
 `
 
 export default () => {
@@ -44,26 +46,89 @@ const Header = () => (
 			justify-content: center;
 			> h1 {
 				margin: 0.8rem;
-				font-size: 100%;
 				font-weight: normal;
 				max-width: 20rem;
 			}
 			> p {
 				margin-top: 0;
 			}
-			img {
-				width: 2.6rem;
-			}
 		`}
 	>
-		<img src="https://avatars1.githubusercontent.com/u/1177762?s=460&v=4" />
-		<h1>
-			Quelques idées sur notre environnement, nos villes et les algorithmes
-		</h1>
+		<h1>Kilomètre</h1>
 	</header>
 )
 
-const Accueil = () => <div>Salut</div>
+const modes = [
+	['marche', '🚶'],
+	['vélo', '🚲'],
+	['voiture', '🚗'],
+	['moto', '🏍'],
+
+	['bus', '🚌'],
+	['métro', '🚇'],
+	['tram', '🚋'],
+]
+
+const Accueil = () => {
+	const [answers, setAnswers] = useState([])
+	return (
+		<div css={pageLayout}>
+			<Header />
+			<h2>Dans la vie, quel est ton trajet principal ?</h2>
+			<p>Pour le boulot, l'école, etc.</p>
+			<ul
+				css={`
+					padding: 0;
+					list-style-type: none;
+					display: flex;
+					justify-content: center;
+					flex-wrap: wrap;
+					li {
+						margin: 0.2rem;
+						font-size: 200%;
+					}
+					input[type='checkbox'] {
+						display: none;
+					}
+				`}
+			>
+				{modes.map(([mode, icon]) => (
+					<li>
+						<input
+							type="checkbox"
+							id={mode}
+							name={mode}
+							checked={answers.includes(mode)}
+						/>
+						<label
+							onClick={() =>
+								setAnswers(
+									answers.includes(mode)
+										? answers.filter((a) => a !== mode)
+										: [...answers, mode]
+								)
+							}
+							css={`
+								img {
+									background: ${answers.includes(mode) ? 'chartreuse' : 'none'};
+									border-radius: 2rem;
+									padding: 1.3rem;
+								}
+								cursor: pointer;
+								display: inline-block;
+								text-align: center;
+							`}
+							title={mode}
+							for={mode}
+						>
+							{<Emoji emoji={icon} />}
+						</label>
+					</li>
+				))}
+			</ul>
+		</div>
+	)
+}
 
 function NoMatch() {
 	let location = useLocation()
