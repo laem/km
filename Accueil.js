@@ -58,7 +58,7 @@ const Header = () => (
 			justify-content: center;
 			> h1 {
 				margin: 0.6 0 2rem;
-				border-bottom: 1px solid chartreuse;
+				border-bottom: 6px dashed chartreuse;
 				font-weight: normal;
 				max-width: 20rem;
 			}
