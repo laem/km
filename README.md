@@ -1,7 +1,7 @@
-Un blog super simple en React, qui affiche les articles en markdown présents dans le dossier `articles`.
-Pour encore plus de confort, vous pouvez configurer Hackmd.io pour écrire dans leur belle interface et pousser les modifications sur Github en un clic.
+Pour changer la mobilité (et c'est *nécessaire*, ne serait-ce que [pour le climat](https://ecolab.ademe.fr/blog/général/budget-empreinte-carbone-c-est-quoi.md)), encore faut-il comprendre comment les gens se déplacent.
 
-A super simple React blog, that displays the articles listed in the directory `articles`.
-For an optimal writing experience, just synchronize Hackmd.io with Github.
+Ceci est un micro-sondage, qui stocke les réponses ici : https://api.npoint.io/699576497bb3b4b3ed6a.
 
+Voilà c'est tout pour l'instant.
 
+![](https://i.imgur.com/GgEb6Ce.png)
