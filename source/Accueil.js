@@ -6,22 +6,19 @@ import {
 	Link,
 	useLocation,
 } from 'react-router-dom'
-import ScrollToTop from './ScrollToTop'
 import Emoji from './Emoji'
 
 export default () => {
 	return (
 		<Router>
-			<ScrollToTop>
-				<Switch>
-					<Route path="/">
-						<Accueil />
-					</Route>
-					<Route path="*">
-						<NoMatch />
-					</Route>
-				</Switch>
-			</ScrollToTop>
+			<Switch>
+				<Route path="/">
+					<Accueil />
+				</Route>
+				<Route path="*">
+					<NoMatch />
+				</Route>
+			</Switch>
 		</Router>
 	)
 

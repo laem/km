@@ -31,7 +31,7 @@ module.exports = {
 	},
 
 	entry: {
-		javascript: './index.js',
+		javascript: './source/index.js',
 	},
 
 	output: {
@@ -46,7 +46,7 @@ module.exports = {
 		isDevelopment && new ReactRefreshWebpackPlugin(),
 		new HtmlWebpackPlugin({
 			title: 'Démo recherche floue',
-			template: 'index.html',
+			template: './source/index.html',
 		}),
 	].filter(Boolean),
 }
