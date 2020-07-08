@@ -9,12 +9,6 @@ import {
 import ScrollToTop from './ScrollToTop'
 import Emoji from './Emoji'
 
-export const pageLayout = `
-			max-width: 800px;
-			margin: 0 auto;
-			font-size: 110%;
-`
-
 export default () => {
 	return (
 		<Router>
@@ -85,6 +79,8 @@ const modes = [
 const Accueil = () => {
 	const [answers, setAnswers] = useState([])
 	const [OK, setOK] = useState(false)
+	const [from, setFrom] = useState(null)
+	const [to, setTo] = useState(null)
 	if (OK)
 		return (
 			<div
@@ -99,10 +95,44 @@ const Accueil = () => {
 			</div>
 		)
 	return (
-		<div css={pageLayout}>
+		<div
+			css={`
+				max-width: 800px;
+				margin: 0 auto;
+				font-size: 110%;
+				h2 {
+					margin-bottom: 0.3rem;
+				}
+			`}
+		>
 			<Header />
 			<h2>Dans la vie, quel est ton trajet principal ?</h2>
-			<p>Pour le boulot, l'école, etc.</p>
+			<small>Pour le boulot, l'école, etc.</small>
+			<div
+				css={`
+					margin: 0.6rem;
+					label {
+						display: block;
+						display: flex;
+						justify-content: space-between;
+						align-items: center;
+						margin: 0.6rem;
+					}
+					label input {
+						border-radius: 0.6rem;
+						border: 1px solid black;
+						font-size: 130%;
+					}
+				`}
+			>
+				<label>
+					De <input value={from} onChange={(e) => setFrom(e.target.value)} />
+				</label>
+				<label>
+					À <input value={to} onChange={(e) => setTo(e.target.value)} />
+				</label>
+			</div>
+			<h3>Comment ? </h3>
 			<ul
 				css={`
 					padding: 0;
@@ -166,7 +196,9 @@ const Accueil = () => {
 					display: block;
 					cursor: pointer;
 				`}
-				onClick={() => answers.length && save(answers, setOK)}
+				onClick={() =>
+					answers.length && save({ mode: answers, from, to }, setOK)
+				}
 			>
 				<Emoji emoji="✔" /> Envoyer
 			</button>
